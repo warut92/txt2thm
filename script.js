@@ -1,9 +1,72 @@
+
+
+
+  //ฟังก์ชันแปลงตัวเลขเป็นตัวโน้ตไทย
+  function alphabet() {
+    var thmtext = document.getElementById('txtinput').value;
+    i = thmtext.split(':')
+    note = i[1]
+  
+    note = note.replace(/1/g, 'ด');
+    note = note.replace(/2/g, 'ร');
+    note = note.replace(/3/g, 'ม');
+    note = note.replace(/4/g, 'ฟ');
+    note = note.replace(/5/g, 'ซ');
+    note = note.replace(/6/g, 'ล');
+    note = note.replace(/7/g, 'ท');
+    note = note.replace(/8/g, 'ดํ');
+    note = note.replace(/9/g, 'รํ');
+    note = note.replace(/\*/g, 'ํ');
+    note = note.replace(/\+/g, 'ํ');
+    note = note.replace(/\./g, 'ฺ');
+  
+    document.getElementById('txtinput').value = i[0] + ":" + note;
+  }
+  
+  
+  //ฟังก์ชันแปลงตัวโน้ตไทยเป็นตัวเลข
+  function numberal() {
+    var thmtext = document.getElementById('txtinput').value;
+    i = thmtext.split(':')
+    note = i[1]
+    //regex ไม่แปลงสตริงใด ๆ ในเครื่องหมาย ()
+    // note = note.replace(/ *\([^)]*\) */g, /(\w*)/);
+  
+    note = note.replace(/ด/g, '1');
+    note = note.replace(/ร/g, '2');
+    note = note.replace(/ม/g, '3');
+    note = note.replace(/ฟ/g, '4');
+    note = note.replace(/ซ/g, '5');
+    note = note.replace(/ล/g, '6');
+    note = note.replace(/ท/g, '7');
+    note = note.replace(/ํ/g, '*');
+    note = note.replace(/ฺ/g, '.');
+  
+    document.getElementById('txtinput').value = i[0] + ":" + note;
+  }
+
+  function changeText() {
+    console.log(document.getElementById("btn1").innerText);
+    if (document.getElementById("btn1").innerText === "ระบบ 1234") {
+      document.getElementById("btn1").innerText = "ระบบ ดรมฟ";
+      
+      numberal();
+    } else {
+      document.getElementById("btn1").innerText = "ระบบ 1234";
+      alphabet();
+    }
+  }
+
 function convertTable() {
   //get text from textarea
   let inputText = document.getElementById("txtinput").value;
 
-  //splite new line by regex
-  let newLineArr = inputText.split(/\n/g);
+  //splite new line song name and melody
+  let nameAndMelody = inputText.split(/:\n/g);
+  const songName = nameAndMelody[0]
+  
+  //splite new line for only melody
+  let newLineArr = nameAndMelody[1].split(/\n/g);
 
   //find length
   let newLineArrLen = newLineArr.length;
@@ -16,18 +79,23 @@ function convertTable() {
     HTMLTableOutput += "<tr><td>" + newLineArr[i] + "</td></tr>" + "\n";
   }
 
-  //replace comma with table tag form
-  HTMLTableOutput = HTMLTableOutput.replace(/,/g, "</td><td>");
+  //get saparetor and make it regex pattern with global flag
+  let sign = document.getElementById('sign').value
+  let sigRegx = new RegExp(`${sign}`, "g")
+
+  //replace saparetor with table tag form
+  HTMLTableOutput = HTMLTableOutput.replace(sigRegx , "</td><td>");
 
   if (HTMLTableOutput !== "<tr><td></td></tr>\n") {
-    document.getElementById("output").innerHTML =
-      "<table style=&#34width:100%&#34>\n" + HTMLTableOutput + "</table>";
-      document.getElementById("outputTable").innerHTML =
+    // document.getElementById("output").innerHTML = songName + "<br>" +
+    //   "<table style=&#34width:100%&#34>\n" + HTMLTableOutput + "</table>";
+      document.getElementById("outputTable").innerHTML = songName + "<br>" +
         "<table style=&#34width:100%&#34>\n" + HTMLTableOutput + "</table>";
   } else {
     alert("empty data!");
   }
 }
+
 
 function copyFunction() {
   // Get the text field

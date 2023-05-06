@@ -7,16 +7,23 @@
   </style>
 </head>
 <h1>โปรแกรมเเขียนโน้ตไทยโดย Warut92</h1>
-<pre>แบ่งห้องจาก</pre><input></input>
+เลือกตัวแบ่งห้อง:<select id="sign" onchange="separetor()">
+      <option value=" ">ช่องว่าง
+      <option value="/">/
+      <option value="|">|
+</select>
 <br>
-<script src="./script.js" charset="utf-8"></script>
-<textarea type="text" id="txtinput" rows="4" cols="50"></textarea>
+
+<textarea type="text" id="txtinput" rows="4" cols="50" oninput="convertTable()
+"></textarea>
 <br>
-<button onclick="convertTable()">แปลงโน้ต</button>
+<!-- <button onclick="convertTable()">แปลงโน้ต</button> -->
+<button  id="btn1" onclick="changeText();convertTable()">ระบบ 1234</button>
 <br>
-<textarea id="output" rows="4" cols="50"></textarea>
+<!-- <textarea id="output" rows="4" cols="50"></textarea> -->
 <br>
-<button onclick="copyFunction()">คัดลอกโน้ต</button>
-<button onclick="clearFunction()">ลบโน้ต</button>
+<!-- <button onclick="copyFunction()">คัดลอกโน้ต</button> -->
+<!-- <button onclick="clearFunction()">ลบโน้ต</button> -->
 <p id="outputTable">
+<script src="./script.js" charset="utf-8"></script>
 
