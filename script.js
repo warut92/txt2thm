@@ -48,6 +48,8 @@
     note = note.replace(/ซ/g, '5');
     note = note.replace(/ล/g, '6');
     note = note.replace(/ท/g, '7');
+    note = note.replace(/ดํ/g, '8');
+    note = note.replace(/รํ/g, '9');
     note = note.replace(/ํ/g, '*');
     note = note.replace(/ฺ/g, '.');
     // checkError()
@@ -99,7 +101,13 @@ function convertTable() {
   HTMLTableOutput = HTMLTableOutput.replace(/<tr><td><\/td><\/tr>\n/g, "</table>\n<br><table style=&#34width:100%&#34>\n");
   //no teble in ท่อน
   HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>ท่อน<\/td><td>)(.*<\/td><\/tr>)/gm, "</table>\n$1 $2\n<table style=&#34width:100%&#34>\n");
-  HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>7่อน<\/td><td>)(.*<\/td><\/tr>)/gm, "</table>\n$1 $2\n<table style=&#34width:100%&#34>\n");
+  // สามชั้น
+  HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>สามชั้น<\/td><\/tr>)/gm, "</table>\n$1\n<table style=&#34width:100%&#34>\n");
+  //สองชั้น
+  HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>สองชั้น<\/td><\/tr>)/gm, "</table>\n$1\n<table style=&#34width:100%&#34>\n");
+  //ชั้นเดียว
+  HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>ชั้นเดียว<\/td><\/tr>)/gm, "</table>\n$1\n<table style=&#34width:100%&#34>\n");
+  // HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>7่อน<\/td><td>)(.*<\/td><\/tr>)/gm, "</table>\n$1 $2\n<table style=&#34width:100%&#34>\n");
   HTMLTableOutput = HTMLTableOutput.replace(/^<table style=&#34width:100%&#34>\n<\/table>/gm, "");
 
   if (HTMLTableOutput !== "<tr><td></td></tr>\n") {
@@ -129,3 +137,9 @@ function clearFunction() {
   document.getElementById("output").innerHTML = x;
   document.getElementById("outputTable").innerHTML = x;
 }
+
+function addRowTextarea() {
+      var lines = document.getElementById("txtinput").value.split(/\r\n|\r|\n/).length;
+      console.log('LINES', lines)
+      document.getElementById("txtinput").rows = lines;
+    }
