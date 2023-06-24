@@ -101,13 +101,14 @@ function convertTable() {
   HTMLTableOutput = HTMLTableOutput.replace(/<tr><td><\/td><\/tr>\n/g, "</table>\n<br><table style=&#34width:100%&#34>\n");
   //no teble in ท่อน
   HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>ท่อน<\/td><td>)(.*<\/td><\/tr>)/gm, "</table>\n$1 $2\n<table style=&#34width:100%&#34>\n");
+
   // สามชั้น
   HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>สามชั้น<\/td><\/tr>)/gm, "</table>\n$1\n<table style=&#34width:100%&#34>\n");
   //สองชั้น
   HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>สองชั้น<\/td><\/tr>)/gm, "</table>\n$1\n<table style=&#34width:100%&#34>\n");
   //ชั้นเดียว
   HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>ชั้นเดียว<\/td><\/tr>)/gm, "</table>\n$1\n<table style=&#34width:100%&#34>\n");
-  // HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>7่อน<\/td><td>)(.*<\/td><\/tr>)/gm, "</table>\n$1 $2\n<table style=&#34width:100%&#34>\n");
+  //delete empty table tag
   HTMLTableOutput = HTMLTableOutput.replace(/^<table style=&#34width:100%&#34>\n<\/table>/gm, "");
 
   if (HTMLTableOutput !== "<tr><td></td></tr>\n") {
