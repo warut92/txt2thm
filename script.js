@@ -1,12 +1,23 @@
-
-
+ let note = ""
+// function checkError() {
+//   var thmtext = document.getElementById('txtinput').value;
+//   i = thmtext.split(':')
+//   note = i[1]
+//
+//   note = note.replace(/(ท่อน) ด/g, '$1 1');
+//   note = note.replace(/(ท่อน) ร/g, '$1 2');
+//   note = note.replace(/(ท่อน) 1/g, '$1 1');
+//
+//   console.log("checkError!");
+//
+// }
 
   //ฟังก์ชันแปลงตัวเลขเป็นตัวโน้ตไทย
   function alphabet() {
     var thmtext = document.getElementById('txtinput').value;
     i = thmtext.split(':')
     note = i[1]
-  
+
     note = note.replace(/1/g, 'ด');
     note = note.replace(/2/g, 'ร');
     note = note.replace(/3/g, 'ม');
@@ -14,24 +25,22 @@
     note = note.replace(/5/g, 'ซ');
     note = note.replace(/6/g, 'ล');
     note = note.replace(/7/g, 'ท');
+    note = note.replace(/7/g, 'ท');
     note = note.replace(/8/g, 'ดํ');
     note = note.replace(/9/g, 'รํ');
     note = note.replace(/\*/g, 'ํ');
     note = note.replace(/\+/g, 'ํ');
     note = note.replace(/\./g, 'ฺ');
-  
+
     document.getElementById('txtinput').value = i[0] + ":" + note;
   }
-  
-  
+
   //ฟังก์ชันแปลงตัวโน้ตไทยเป็นตัวเลข
   function numberal() {
     var thmtext = document.getElementById('txtinput').value;
     i = thmtext.split(':')
     note = i[1]
-    //regex ไม่แปลงสตริงใด ๆ ในเครื่องหมาย ()
-    // note = note.replace(/ *\([^)]*\) */g, /(\w*)/);
-  
+
     note = note.replace(/ด/g, '1');
     note = note.replace(/ร/g, '2');
     note = note.replace(/ม/g, '3');
@@ -41,7 +50,7 @@
     note = note.replace(/ท/g, '7');
     note = note.replace(/ํ/g, '*');
     note = note.replace(/ฺ/g, '.');
-  
+    // checkError()
     document.getElementById('txtinput').value = i[0] + ":" + note;
   }
 
@@ -49,7 +58,6 @@
     console.log(document.getElementById("btn1").innerText);
     if (document.getElementById("btn1").innerText === "ระบบ 1234") {
       document.getElementById("btn1").innerText = "ระบบ ดรมฟ";
-      
       numberal();
     } else {
       document.getElementById("btn1").innerText = "ระบบ 1234";
@@ -64,9 +72,10 @@ function convertTable() {
   //splite new line song name and melody
   let nameAndMelody = inputText.split(/:\n/g);
   const songName = nameAndMelody[0]
-  
+
   //splite new line for only melody
   let newLineArr = nameAndMelody[1].split(/\n/g);
+  console.log('NEWLINEARR', newLineArr)
 
   //find length
   let newLineArrLen = newLineArr.length;
@@ -85,31 +94,33 @@ function convertTable() {
 
   //replace saparetor with table tag form
   HTMLTableOutput = HTMLTableOutput.replace(sigRegx , "</td><td>");
+  //replace empty line to new teble
+  // HTMLTableOutput = HTMLTableOutput.replace(/<tr><td><\/td><\/tr>\n/gm, "");
+  HTMLTableOutput = HTMLTableOutput.replace(/<tr><td><\/td><\/tr>\n/g, "</table>\n<br><table style=&#34width:100%&#34>\n");
+  //no teble in ท่อน
+  HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>ท่อน<\/td><td>)(.*<\/td><\/tr>)/gm, "</table>\n$1 $2\n<table style=&#34width:100%&#34>\n");
+  HTMLTableOutput = HTMLTableOutput.replace(/^(<tr><td>7่อน<\/td><td>)(.*<\/td><\/tr>)/gm, "</table>\n$1 $2\n<table style=&#34width:100%&#34>\n");
+  HTMLTableOutput = HTMLTableOutput.replace(/^<table style=&#34width:100%&#34>\n<\/table>/gm, "");
 
   if (HTMLTableOutput !== "<tr><td></td></tr>\n") {
     // document.getElementById("output").innerHTML = songName + "<br>" +
     //   "<table style=&#34width:100%&#34>\n" + HTMLTableOutput + "</table>";
       document.getElementById("outputTable").innerHTML = songName + "<br>" +
         "<table style=&#34width:100%&#34>\n" + HTMLTableOutput + "</table>";
+        console.log('"<TABLE STYLE=&#34WIDTH:100%&#34>\\N" + HTMLTABLEOUTPUT + "</TABLE>"', "<table style=&#34width:100%&#34>\n" + HTMLTableOutput + "</table>")
   } else {
-    alert("empty data!");
+    console.log("empty data!");
   }
 }
-
 
 function copyFunction() {
   // Get the text field
   var copyText = document.getElementById("output");
-
   // Select the text field
   copyText.select();
   copyText.setSelectionRange(0, 99999); // For mobile devices
-
   // Copy the text inside the text field
   navigator.clipboard.writeText(copyText.value);
-
-  // Alert the copied text
-  // alert("Copied the text: " + copyText.value);
 }
 
 function clearFunction() {
@@ -118,4 +129,3 @@ function clearFunction() {
   document.getElementById("output").innerHTML = x;
   document.getElementById("outputTable").innerHTML = x;
 }
-

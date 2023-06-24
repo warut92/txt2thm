@@ -1,29 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
+  <title>โปรแกรมช่วยพิมพ์โน้ตดนตรีไทย (beta)</title>
+    <link rel="icon" type="image/x-icon" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400&display=swap" rel="stylesheet">
   <style>
-    table, th, td {
+    body,
+    button,
+    select,
+    option {
+      font-family: 'Sarabun', sans-serif;
+    }
+
+    table,
+    th,
+    td {
       border: 1px solid black;
       border-collapse: collapse;
     }
   </style>
 </head>
-<h1>โปรแกรมเเขียนโน้ตไทยโดย Warut92</h1>
+<h1>โปรแกรมช่วยพิมพ์โน้ตดนตรีไทย <i>(beta)</i></h1>
+<a href="#">คำอธิบาย</a><br>
 เลือกตัวแบ่งห้อง:<select id="sign" onchange="separetor()">
-      <option value=" ">ช่องว่าง
-      <option value="/">/
-      <option value="|">|
+  <option value=" ">ช่องว่าง
+    <!-- <option value="/">/
+      <option value="|">| -->
 </select>
+<button id="btn1" onclick="changeText();convertTable()">ระบบ 1234</button>
 <br>
 
-<textarea type="text" id="txtinput" rows="4" cols="50" oninput="convertTable()
-"></textarea>
+<textarea type="text" id="txtinput" rows="4" cols="50" oninput="convertTable()" onfocus="convertTable();addRowTextarea()"></textarea>
 <br>
 <!-- <button onclick="convertTable()">แปลงโน้ต</button> -->
-<button  id="btn1" onclick="changeText();convertTable()">ระบบ 1234</button>
 <br>
 <!-- <textarea id="output" rows="4" cols="50"></textarea> -->
 <br>
 <!-- <button onclick="copyFunction()">คัดลอกโน้ต</button> -->
 <!-- <button onclick="clearFunction()">ลบโน้ต</button> -->
 <p id="outputTable">
-<script src="./script.js" charset="utf-8"></script>
+  <script>
+  function addRowTextarea() {
+    console.log("hi");
+        var lines = document.getElementById("txtinput").value.split(/\r\n|\r|\n/).length;
+        console.log('LINES', lines)
+        document.getElementById("txtinput").rows = lines;
+      }
+  </script>
+  <script src="./script.js" charset="utf-8"></script>
 
+</html>
